@@ -20,5 +20,13 @@
   "bugs": {
     "url": "https://github.com/5730289021-NN/microjarvis-server/issues"
   },
-  "homepage": "https://github.com/5730289021-NN/microjarvis-server#readme"
+  "homepage": "https://github.com/5730289021-NN/microjarvis-server#readme",
+  "dependencies": {
+    "actions-on-google": "^2.3.0",
+    "dialogflow-fulfillment": "^0.5.0",
+    "express": "^4.16.3",
+    "firebase-admin": "^6.0.0",
+    "firebase-functions": "^2.0.5",
+    "serialport": "^7.0.2"
+  }
 }
