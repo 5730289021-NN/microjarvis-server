@@ -18,12 +18,10 @@ app.get('/', (req, res) => {
 
 app.post('/bot', (req, res) => {
     console.log(req.body);
-    console.log(req);
     res.setHeader('Content-Type', 'application/json');
     res.send(
         JSON.stringify({
-            "speech": "Error. Can you try it again ? ",
-            "displayText": "Error. Can you try it again ? "
+            "fulfillmentText": "This is a text response"
         }));
 });
 
