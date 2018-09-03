@@ -1,3 +1,5 @@
+"use strict";
+
 const SerialPort = require('serialport');
 
 class Communicator {
@@ -17,7 +19,7 @@ class Communicator {
             if (err) {
                 return console.log('Error on write: ', err.message);
             }
-            console.log('Notify others');
+            console.log('Command sent');
         });
     }
     checkIncomingTransimission(){
@@ -25,8 +27,8 @@ class Communicator {
     }
 }
 
-let communicator = new Communicator();
-export default communicator;
+const communicator = new Communicator();
+module.exports = communicator;
 
 
 
