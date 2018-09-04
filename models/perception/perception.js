@@ -17,7 +17,7 @@ class ButtonPerception extends Perception{
         this.buttonPressed = false;
     }
     perceive(signal) {
-        this.buttonPressed = (signal == "button pressed");
+        this.buttonPressed = (signal == "b");
     }
     isPerceived() {
         return this.buttonPressed;
@@ -30,7 +30,7 @@ class SensePerception extends Perception{
         this.sensed = false;
     }
     perceive(signal) {
-        this.sensed = (signal = "sensed");
+        this.sensed = (signal == "s");
     }
     isPerceived() {
         return this.sensed;
@@ -38,13 +38,22 @@ class SensePerception extends Perception{
 }
 
 class TimePerception extends Perception{
-    constructor(perceiveTime){
+    constructor(perceiveTime, queryText){
         super();
-        this.perceiveTime = moment(perceiveTime);
+        if(queryText.toLowerCase().includes("second"))
+        {
+            //There is a bug that dialogflow wrongly interplete the time in second
+            let secondIndex = queryText.toLowerCase().indexOf('second');
+            let secondAdd = queryText.substring(secondIndex - 3, secondIndex - 1);
+            this.perceiveTime = moment().add(parseInt(secondAdd), 'seconds');
+        } else {
+            this.perceiveTime = moment(perceiveTime);
+        }
+        
     }
     isPerceived() {
-        return (moment().valueOf() - this.perceiveTime()) > 0;
+        return (moment().valueOf() - this.perceiveTime) > 0;
     }
 }
 
-module.exports = { Perception, ButtonPerception, SensePerception, TimePerception};
+module.exports = { ButtonPerception, SensePerception, TimePerception };

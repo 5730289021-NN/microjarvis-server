@@ -4,31 +4,35 @@ const SerialPort = require('serialport');
 
 class Communicator {
     constructor() {
-        const port = new SerialPort('CNCA0');
-        port.on('error', function (err) {
+        this.port = new SerialPort('COM5',{
+            baudRate: 115200
+          });
+        this.port.on('error', function (err) {
             console.log('Error: ', err.message);
         });        
-        port.on('readable', function () {
-            this.incomingTransmission = port.read().toString('utf8');
-            console.log('Data: ', this.incomingTransmission);
+        this.port.on('readable', () => {
+            this.incomingTransmission = this.port.read().toString('utf8');
+            console.log('Receive:', this.incomingTransmission);
         });
         this.incomingTransmission = "";
     }
     sendCommand(signal) {
-        port.write(signal + '.\r\n', function (err) {
+        this.port.write(signal + '.', function (err) {
             if (err) {
-                return console.log('Error on write: ', err.message);
+                return console.log('Error on write:', err.message);
             }
-            console.log('Command sent');
+            console.log('\'' + signal +  '\' sent');
         });
     }
     checkIncomingTransimission(){
         return this.incomingTransmission;
     }
+    resetIncomingTransimission(){
+        this.incomingTransmission = '';
+    }
 }
 
-const communicator = new Communicator();
-module.exports = communicator;
+module.exports = new Communicator();
 
 
 

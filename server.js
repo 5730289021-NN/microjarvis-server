@@ -19,7 +19,7 @@ app.post('/bot', (req, res) => {
 
     switch(intent) {
         case 'time-action':
-            webHandler.handleTimePerception(params.time);
+            webHandler.handleTimePerception(params.time, req.body.queryResult.queryText);
             break;
         case 'sense-action':
             webHandler.handleSensePerception();
@@ -40,7 +40,7 @@ app.post('/bot', (req, res) => {
             webHandler.handleShowNumberAction(params.number, intent === 'action');
             break;
         case 'play':
-            webHandler.handleShowNumberAction(params.music, intent === 'action');
+            webHandler.handlePlayAction(params.music, intent === 'action');
             break;
     }
 

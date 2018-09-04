@@ -1,7 +1,7 @@
 "use strict";
 
-const { loadPool } = require('./../loadpool/loadpool.js');
-const { TimePerception, SensePerception, ButtonPerception } = require('./../perception/perception.js');
+const loadPool = require('./../loadpool/loadpool.js');
+const { ButtonPerception, SensePerception, TimePerception } = require('./../perception/perception.js');
 const { TurnOnAction, TurnOffAction, ShowNumberAction, PlayAction } = require('./../action/action.js');
 
 
@@ -11,8 +11,8 @@ class WebHandler {
     }
 
     //Perception
-    handleTimePerception(time) {
-        loadPool.addPerception(new TimePerception(time));
+    handleTimePerception(time, text) {
+        loadPool.addPerception(new TimePerception(time, text));
     }
     handleSensePerception() {
         loadPool.addPerception(new SensePerception());
@@ -23,19 +23,22 @@ class WebHandler {
 
     //Action
     handleTurnOnAction(light, immediate) {
+        console.log('handleTurnOnAction');
         immediate ? new TurnOnAction(light).act() : loadPool.addAction(new TurnOnAction(light));
     }
-    handleTurnOffAction(light, actNow) {
+    handleTurnOffAction(light, immediate) {
+        console.log('handleTurnOffAction');
         immediate ? new TurnOffAction(light).act() : loadPool.addAction(new TurnOffAction(light));
     }
-    handleShowNumberAction(number, actNow) {
+    handleShowNumberAction(number, immediate) {
+        console.log('handleShowNumberAction');
         immediate ? new ShowNumberAction(number).act() : loadPool.addAction(new ShowNumberAction(number));
     }
-    handlePlayAction(music, actNow) {
+    handlePlayAction(music, immediate) {
+        console.log('handlePlayAction');
         immediate ? new PlayAction(music).act() : loadPool.addAction(new PlayAction(music));
     }
 
 }
 
-const webHandler = new WebHandler();
-module.exports = webHandler;
+module.exports = new WebHandler();

@@ -1,4 +1,4 @@
-const { communicator } = require('./../communicator/communicator.js');
+const communicator = require('./../communicator/communicator.js');
 
 class Action {
     constructor() {}
@@ -16,10 +16,9 @@ class TurnOnAction extends Action{
             this.led = "green";
         } else
             this.led = "unknown";
-        this.led = led;
     }
     act() {
-        communicator.sendCommand("turn on " + led);
+        communicator.sendCommand("turn on " + this.led);
     }
 }
 
@@ -32,10 +31,9 @@ class TurnOffAction extends Action{
             this.led = "green";
         } else
             this.led = "unknown";
-        this.led = led;
     }
     act() {
-        communicator.sendCommand("turn off " + led);
+        communicator.sendCommand("turn off " + this.led);
     }
 }
 
@@ -45,7 +43,7 @@ class ShowNumberAction extends Action{
         this.number = number;
     }
     act() {
-        communicator.sendCommand("show " + number);
+        communicator.sendCommand("show " + this.number);
     }
 }
 
@@ -55,8 +53,8 @@ class PlayAction extends Action{
         this.music = music;
     }
     act() {
-        communicator.sendCommand("play " + music);
+        communicator.sendCommand("play");//Implementable
     }
 }
 
-module.exports = { Action, TurnOnAction, TurnOffAction, ShowNumberAction, PlayAction }
+module.exports = { TurnOnAction, TurnOffAction, ShowNumberAction, PlayAction }
